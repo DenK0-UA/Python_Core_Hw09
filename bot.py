@@ -67,15 +67,20 @@ COMMAND = {
 
 @input_error
 def process_command(command):
-    command_parts = command.split(maxsplit=1)
-    cmd = command_parts[0].lower()
-    args = command_parts[1] if len(command_parts) > 1 else None
-    func = COMMAND.get(cmd)
-    if func:
-        if args:
-            print(func(*args.split()))
-        else:
-            print(func())
+    cmd, *args = command.lower().split()
+
+    if cmd == "show" and args and args[0] == "all":
+        cmd = "show_all"
+        args = []
+
+    if cmd in COMMAND:
+        try:
+            if args:
+                print(COMMAND[cmd](*args))
+            else:
+                print(COMMAND[cmd]())
+        except Exception as e:
+            print(f"An error occurred: {e}")
     else:
         print("Invalid command. Please try again.")
 
