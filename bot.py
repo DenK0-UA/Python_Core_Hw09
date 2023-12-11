@@ -8,6 +8,8 @@ def input_error(func):
             return "Invalid input. Please try again."
         except IndexError:
             return "Invalid command. Please try again."
+        except TypeError:
+            return "Invalid number of arguments passed"
     return wrapper
 
 
