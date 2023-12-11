@@ -10,6 +10,8 @@ def input_error(func):
             return "Invalid command. Please try again."
         except TypeError:
             return "Invalid number of arguments passed"
+        except KeyboardInterrupt:
+            return
     return wrapper
 
 
